@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from "react";
 import MapView from "@arcgis/core/views/MapView";
 import SceneView from '@arcgis/core/views/SceneView';
 import Map from '@arcgis/core/Map';
-
+import Grid from '@material-ui/core/Grid';
 
 import "./App.css"; 
 
@@ -30,7 +30,7 @@ function App() {
   useEffect(() => {
     if (sceneDiv.current) {
 
-      const sceneview = new SceneView({
+      const sceneView = new SceneView({
         container: sceneDiv.current,
         map: map
       });
@@ -38,9 +38,15 @@ function App() {
   }, []);
 
   return <>
+  <Grid className="gridRoot" container>
+    <Grid  item xs={6}>
       <div className="mapDiv" ref={mapDiv}></div>
-      <div className="sceneDiv" ref={sceneDiv}></div>
-    </>;
+    </Grid>
+    <Grid item xs={6}>
+      <div className="mapDiv" ref={sceneDiv}></div>
+    </Grid>
+  </Grid>
+  </>;
 }
 
 export default App;
