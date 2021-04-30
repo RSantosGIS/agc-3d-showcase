@@ -209,24 +209,29 @@ function App() {
   }
 
   return <>
-  <div className = {classes.root}>
-    <AppBar position='static'>
-      <Toolbar>
-        <IconButton edge='start' className={classes.starButton} color='inherit' aria-label='menu'>
-          <StarIcon />
-        </IconButton>
-        <Typography variant="h4" className={classes.title}>
-            AGC 3D Showcase
-        </Typography>
-        <Tabs value={navTabIndex} onChange={handleChange} arial-label='nav tabs'>
-          <Tab label="Linked Map/Scene" {...a11yProps(0)}/>
-          <Tab label="Future Demo" {...a11yProps(1)}/>
-          <Tab label="Future Demo" {...a11yProps(2)}/>
-        </Tabs>
-      </Toolbar>
-    </AppBar>    
-  </div>
-  <Grid className="gridRoot" container>
+  <Grid container>
+    <Grid item xs={12}>
+    <div className = {classes.root}>
+      <AppBar position='static'>
+        <Toolbar>
+          <IconButton edge='start' className={classes.starButton} color='inherit' aria-label='menu'>
+            <StarIcon />
+          </IconButton>
+          <Typography variant="h4" className={classes.title}>
+              AGC 3D Showcase
+          </Typography>
+          <Tabs value={navTabIndex} onChange={handleChange} arial-label='nav tabs'>
+            <Tab label="Linked Map/Scene" {...a11yProps(0)}/>
+            <Tab label="Future Demo" {...a11yProps(1)}/>
+            <Tab label="Future Demo" {...a11yProps(2)}/>
+          </Tabs>
+        </Toolbar>
+      </AppBar>    
+    </div>
+    </Grid>
+  </Grid>
+  
+  <Grid className="contentRoot" container>
     <Grid  item xs={6}>
       <div className="mapDiv" ref={mapDiv}></div>
     </Grid>
@@ -234,6 +239,7 @@ function App() {
       <div className="mapDiv" ref={sceneDiv}></div>
     </Grid>
   </Grid>
+  
   </>;
 }
 

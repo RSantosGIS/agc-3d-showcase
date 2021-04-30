@@ -1,10 +1,13 @@
-.gridRoot {
-  height: 100%;
+.contentRoot {
+  height: 93%;
   width: 100%;
+  /*Good enough for now to fix the sizing problem with map and the nav bar
+  TODO: Need a way to fix the stupid map dissapearing if not 100% of container problem
+  Maybe add something to resize this to viewportHeight-64 px on load and window resize?
+  */
 }
 .mapDiv {
-  padding: 0;
-  margin: 0;
+  padding: 0px;
   height: 100%;
   width: 100%;
 }
