@@ -157,6 +157,8 @@ function App() {
 
       sceneView.ui.add(sceneLegend, "bottom-left");
 
+      console.log(mapLegend.container);
+
 
       const views = [sceneView, mapView];
       let active;
