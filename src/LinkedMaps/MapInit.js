@@ -2,24 +2,24 @@ import Map from '@arcgis/core/Map';
 import MapView from '@arcgis/core/views/MapView';
 import SceneView from '@arcgis/core/views/SceneView';
 
-var map = new Map({
-  basemap: "satellite"
-});
-
-// var sceneView = new SceneView({
-//   map: map
+// var map = new Map({
+//   basemap: "satellite"
 // });
 
-var mapView = new MapView({
-  map: map,
-  constraints: {
-    // Disable zoom snapping to get the best synchronization
-    snapToZoom: false
-  }
-});
+// // var sceneView = new SceneView({
+// //   map: map
+// // });
 
-//const views = [sceneView, mapView];
-let active;
+// var mapView = new MapView({
+//   map: map,
+//   constraints: {
+//     // Disable zoom snapping to get the best synchronization
+//     snapToZoom: false
+//   }
+// });
+
+// const views = [sceneView, mapView];
+// let active;
 
 // const sync = (source) => {
 //   if (!active || !active.viewpoint || active !== source) {
@@ -34,12 +34,12 @@ let active;
 // };
 
 export const initialize = (sceneContainer, mapContainer) => {
-  debugger;
-  mapView.container = mapContainer;
-  mapView.when().then(()=>{
-    console.log('scene loaded');
-  });
-  //mapView.container = mapContainer;
+  // debugger;
+  // mapView.container = mapContainer;
+  // mapView.when().then(()=>{
+  //   console.log('scene loaded');
+  // });
+  // //mapView.container = mapContainer;
 
   // Promise.all([sceneView.when(), mapView.when()]).then(()=> {
   //   //all elements ready
