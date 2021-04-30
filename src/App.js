@@ -90,6 +90,27 @@ function App() {
       ]
     };
 
+    //Popups
+    const template = {
+      // autocasts as new PopupTemplate()
+      title: "{EVENTID} on {DAY}",
+      content: [
+        {
+          type: "fields",
+          fieldInfos: [
+            {
+              fieldName: "PRESSURE",
+              label: "Pressure"
+            },
+            {
+              fieldName: "WINDSPEED",
+              label: "Windspeed"
+            },
+          ]
+        }
+      ]
+    };
+
     //Layers
     const lyonSceneLayer = new SceneLayer({
       portalItem: {
@@ -101,11 +122,13 @@ function App() {
       }
     });
     var hurricaneLayer2d = new FeatureLayer({
-      url: "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Hurricanes/MapServer/0"
+      url: "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Hurricanes/MapServer/0",
+      popupTemplate: template
     });
     var hurricaneLayer3d = new FeatureLayer({
       url: "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Hurricanes/MapServer/0",
-      renderer: renderer
+      renderer: renderer,
+      popupTemplate: template
     });
 
 
