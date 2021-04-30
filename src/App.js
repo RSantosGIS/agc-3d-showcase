@@ -1,6 +1,8 @@
 import React, { useRef, useEffect } from "react";
 import MapView from "@arcgis/core/views/MapView";
 import SceneView from '@arcgis/core/views/SceneView';
+import SceneLayer from '@arcgis/core/layers/SceneLayer';
+import FeatureLayer from '@arcgis/core/layers/FeatureLayer';
 import Map from '@arcgis/core/Map';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
@@ -11,6 +13,7 @@ import IconButton from '@material-ui/core/IconButton';
 import StarIcon from '@material-ui/icons/Star';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import Legend from '@arcgis/core/widgets/Legend';
 
 import "./App.css"; 
 
@@ -33,8 +36,88 @@ function App() {
   const [navTabIndex, setNavTabIndex] = React.useState(0);
   
   useEffect(() => {
-    var map = new Map({
-      basemap: "satellite"
+    //Renderer
+    var renderer = {
+      type: "simple", // autocasts as new SimpleRenderer()
+      symbol: {
+        type: "point-3d", // autocasts as new PointSymbol3D()
+        symbolLayers: [
+          {
+            type: "object", // autocasts as new ObjectSymbol3DLayer()
+            resource: {
+              primitive: "cone"
+            },
+            width: 50000 // width of the symbol in meters
+          }
+        ]
+      },
+      label: "hurricane location",
+      visualVariables: [
+        {
+          type: "color",
+          field: "PRESSURE",
+          stops: [
+            {
+              value: 950,
+              color: "red"
+            },
+            {
+              value: 1020,
+              color: "blue"
+            }
+          ]
+        },
+        {
+          type: "size",
+          field: "WINDSPEED",
+          stops: [
+            {
+              value: 20,
+              size: 60000
+            },
+            {
+              value: 150,
+              size: 500000
+            }
+          ],
+          axis: "height"
+        },
+        {
+          type: "size",
+          axis: "width-and-depth",
+          useSymbolValue: true // uses the width value defined in the symbol layer (50,000)
+        }
+      ]
+    };
+
+    //Layers
+    const lyonSceneLayer = new SceneLayer({
+      portalItem: {
+        id: "b66b02861afa4e8dbf9655d05bc89afc"
+      },
+      elevationInfo: {
+        mode: "absolute-height",
+        offset: 6
+      }
+    });
+    var hurricaneLayer2d = new FeatureLayer({
+      url: "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Hurricanes/MapServer/0"
+    });
+    var hurricaneLayer3d = new FeatureLayer({
+      url: "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Hurricanes/MapServer/0",
+      renderer: renderer
+    });
+
+
+    //Maps
+    var cartesianMap = new Map({
+      basemap: "hybrid",
+      layers: [hurricaneLayer2d]
+    });
+    var sceneMap = new Map({
+      basemap: "hybrid",
+      ground: 'world-elevation',
+      layers: [lyonSceneLayer, hurricaneLayer3d]
     });
     if (mapDiv.current && sceneDiv.current) {
       /**
@@ -43,7 +126,7 @@ function App() {
 
       const mapView = new MapView({
         container: mapDiv.current,
-        map: map,
+        map: cartesianMap,
         constraints: {
           // Disable zoom snapping to get the best synchronization
           snapToZoom: false
@@ -51,8 +134,29 @@ function App() {
       });
       const sceneView = new SceneView({
         container: sceneDiv.current,
-        map: map
+        map: sceneMap,
+        environment: {
+          lighting: {
+            date: new Date("July 15, 2015 8:00:00 PDT"),
+            directShadowsEnabled: true
+          },
+          atmosphere: {
+            quality: "high"
+          }
+        }
       });
+
+      //Widgets
+      var mapLegend = new Legend({
+        view: mapView
+      });
+      mapView.ui.add(mapLegend, "bottom-left");
+      var sceneLegend = new Legend({
+        view: sceneView
+      });
+
+      sceneView.ui.add(sceneLegend, "bottom-left");
+
 
       const views = [sceneView, mapView];
       let active;
@@ -71,6 +175,8 @@ function App() {
 
       Promise.all([sceneView.when(), mapView.when()]).then(()=> {
         //all elements ready
+
+        //sync
         sceneView.watch(["interacting", "animation"], () => {
           active = sceneView;
           sync(active);
