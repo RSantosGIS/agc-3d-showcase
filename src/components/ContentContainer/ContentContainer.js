@@ -18,7 +18,7 @@ export default function ContentContainer(props) {
         
       </Route>
       <Route exact path='/'>
-        <Redirect to='/home'></Redirect>
+        <Redirect to={props.tabIndex[0]}></Redirect>
       </Route>
     </>
   )
