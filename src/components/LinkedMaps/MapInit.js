@@ -4,90 +4,20 @@ import SceneLayer from '@arcgis/core/layers/SceneLayer';
 import FeatureLayer from '@arcgis/core/layers/FeatureLayer';
 import Legend from '@arcgis/core/widgets/Legend';
 import Map from '@arcgis/core/Map';
+import config from 'AgcShowcaseConfig';
 
 const initRenderer = () => {
-  var renderer = {
-    type: "simple", // autocasts as new SimpleRenderer()
-    symbol: {
-      type: "point-3d", // autocasts as new PointSymbol3D()
-      symbolLayers: [
-        {
-          type: "object", // autocasts as new ObjectSymbol3DLayer()
-          resource: {
-            primitive: "cone"
-          },
-          width: 50000 // width of the symbol in meters
-        }
-      ]
-    },
-    label: "hurricane location",
-    visualVariables: [
-      {
-        type: "color",
-        field: "PRESSURE",
-        stops: [
-          {
-            value: 950,
-            color: "red"
-          },
-          {
-            value: 1020,
-            color: "blue"
-          }
-        ]
-      },
-      {
-        type: "size",
-        field: "WINDSPEED",
-        stops: [
-          {
-            value: 20,
-            size: 60000
-          },
-          {
-            value: 150,
-            size: 500000
-          }
-        ],
-        axis: "height"
-      },
-      {
-        type: "size",
-        axis: "width-and-depth",
-        useSymbolValue: true // uses the width value defined in the symbol layer (50,000)
-      }
-    ]
-  };
-  return renderer;
+  return config.tabDefs.linkedMapSettings.renderer;
 }
 
 const initPopups = () => {
-  const template = {
-    // autocasts as new PopupTemplate()
-    title: "{EVENTID} on {DAY}",
-    content: [
-      {
-        type: "fields",
-        fieldInfos: [
-          {
-            fieldName: "PRESSURE",
-            label: "Pressure"
-          },
-          {
-            fieldName: "WINDSPEED",
-            label: "Windspeed"
-          },
-        ]
-      }
-    ]
-  };
-  return template;
+  return config.tabDefs.linkedMapSettings.demoFeaturePopuptemplate;
 };
 
 const initMapView = (mapDiv, layers) =>{
   //Maps
   var cartesianMap = new Map({
-    basemap: "hybrid",
+    basemap: config.tabDefs.linkedMapSettings.mapSettings.basemap,
     layers: layers
   });
   const mapView = new MapView({
@@ -103,22 +33,14 @@ const initMapView = (mapDiv, layers) =>{
 
 const initSceneView = (sceneDiv, layers) => {
   var sceneMap = new Map({
-    basemap: "hybrid",
-    ground: 'world-elevation',
+    basemap: config.tabDefs.linkedMapSettings.sceneSettings.basemap,
+    ground: config.tabDefs.linkedMapSettings.sceneSettings.ground,
     layers: layers
   });
   const sceneView = new SceneView({
     container: sceneDiv,
     map: sceneMap,
-    environment: {
-      lighting: {
-        date: new Date("July 15, 2015 8:00:00 PDT"),
-        directShadowsEnabled: true
-      },
-      atmosphere: {
-        quality: "high"
-      }
-    }
+    environment: config.tabDefs.linkedMapSettings.sceneViewSettings.environment
   });
   return sceneView;
 };
@@ -127,12 +49,12 @@ const initWidgets = (mapView, sceneView) => {
   var mapLegend = new Legend({
     view: mapView
   });
-  mapView.ui.add(mapLegend, "bottom-left");
+  mapView.ui.add(mapLegend, config.tabDefs.linkedMapSettings.legendSettings.uiLocation);
   var sceneLegend = new Legend({
     view: sceneView
   });
 
-  sceneView.ui.add(sceneLegend, "bottom-left");
+  sceneView.ui.add(sceneLegend, config.tabDefs.linkedMapSettings.legendSettings.uiLocation);
 };
 
 const initEventHandling = (mapView, sceneView) => {
@@ -176,23 +98,15 @@ export default function initialize (mapDiv, sceneDiv) {
   let template = initPopups();
 
   //Layers
-  var lyonSceneLayer = new SceneLayer({
-    portalItem: {
-      id: "b66b02861afa4e8dbf9655d05bc89afc"
-    },
-    elevationInfo: {
-      mode: "absolute-height",
-      offset: 6
-    }
-  });
+  var lyonSceneLayer = new SceneLayer(config.tabDefs.linkedMapSettings.demoSceneLayerSettings);
   var hurricaneLayer2d = new FeatureLayer({
-    url: "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Hurricanes/MapServer/0",
-    popupTemplate: template
+    template : template,
+    ...config.tabDefs.linkedMapSettings.demoFeatureLayerSettings
   });
   var hurricaneLayer3d = new FeatureLayer({
-    url: "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Hurricanes/MapServer/0",
     renderer: renderer,
-    popupTemplate: template
+    popupTemplate: template,
+    ...config.tabDefs.linkedMapSettings.demoFeatureLayerSettings
   });
 
   //Views
