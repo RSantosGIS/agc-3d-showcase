@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 var AgcShowcaseConfig = {
   rootPath : '/agc-3d-showcase',
   bannerText: 'AGC 3D Showcase',
