@@ -11,7 +11,7 @@ import "./App.css";
 
 function App() {
   
-  const tabIndex = ['/home', '/line-of-sight', '/placeholder'];
+  const tabIndex = config.tabDefs.tabIndexes;
 
   return <>
   <BrowserRouter basename={config.rootPath}>

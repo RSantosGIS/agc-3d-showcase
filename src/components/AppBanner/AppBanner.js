@@ -8,6 +8,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { makeStyles } from '@material-ui/core/styles';
 import {useHistory} from 'react-router-dom';
+import config from 'AgcShowcaseConfig';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -47,12 +48,12 @@ export default function AppBanner(props) {
             <StarIcon />
           </IconButton>
           <Typography variant="h4" className={classes.title}>
-              AGC 3D Showcase
+              {config.bannerText}
           </Typography>
           <Tabs value={navTabIndex} onChange={handleChange} arial-label='nav tabs'>
-            <Tab label="Linked Map/Scene" {...a11yProps(0)}/>
-            <Tab label="3D Line of Sight" {...a11yProps(1)}/>
-            <Tab label="Future Demo" {...a11yProps(2)}/>
+            <Tab label={config.tabDefs.tabTitles[0]} {...a11yProps(0)}/>
+            <Tab label={config.tabDefs.tabTitles[1]} {...a11yProps(1)}/>
+            <Tab label={config.tabDefs.tabTitles[2]} {...a11yProps(2)}/>
           </Tabs>
         </Toolbar>
       </AppBar>  
