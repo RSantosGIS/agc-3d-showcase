@@ -1,6 +1,7 @@
 import React from 'react'
 import { Route, Redirect } from 'react-router-dom';
 import LinkedMapsContainer from '../LinkedMaps/LinkedMapsContainer';
+import LineOfSightContainer from '../LineOfSight/LineOfSightContainer';
 
 
 export default function ContentContainer(props) {
@@ -12,7 +13,7 @@ export default function ContentContainer(props) {
         <LinkedMapsContainer />
       </Route>
       <Route path={props.tabIndex[1]}>
-        Test
+        <LineOfSightContainer/>
       </Route>
       <Route path={props.tabIndex[2]}>
         

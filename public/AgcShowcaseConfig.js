@@ -110,6 +110,14 @@ var AgcShowcaseConfig = {
       demoFeatureLayerSettings: {
         url: "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Hurricanes/MapServer/0"
       }
+    },
+    losSettings: {
+      sceneSettings: {
+        portalItemId: '82127fea11d6439abba3318cb93252f7'
+      },
+      losWidgetSettings: {
+        uiLocation: 'top-right'
+      }
     }
   }
 }
