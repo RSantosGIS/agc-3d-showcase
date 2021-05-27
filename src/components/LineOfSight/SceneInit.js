@@ -2,11 +2,11 @@ import WebScene from '@arcgis/core/WebScene';
 import Graphic from '@arcgis/core/Graphic';
 import SceneView from '@arcgis/core/views/SceneView';
 import LineOfSight from '@arcgis/core/widgets/LineOfSight';
+import LayerList from '@arcgis/core/widgets/LayerList';
 import * as watchUtils from '@arcgis/core/core/watchUtils';
 import config from 'AgcShowcaseConfig';
 
 const initScene = (sceneDiv) => {
-  debugger;
   const scene = new WebScene({
     portalItem: {
       id: '82127fea11d6439abba3318cb93252f7'
@@ -21,6 +21,9 @@ const initScene = (sceneDiv) => {
 }
 
 const initWidgets = (sceneView) => {
+  /**
+   * LOS
+   */
   const lineOfSight = new LineOfSight({
     view: sceneView,
   });
@@ -75,6 +78,18 @@ const initWidgets = (sceneView) => {
   // resume the analysis
   watchUtils.whenEqualOnce(viewModel, "state", "creating", () => {
     viewModel.stop();
+  });
+
+  /**
+     * Layer List
+     */
+   sceneView.when(function() {
+    var layerList = new LayerList({
+      view: sceneView
+    });
+
+    // Add widget to the top right corner of the view
+    sceneView.ui.add(layerList, "bottom-right");
   });
 }
 export default function initialize (sceneDiv) {
