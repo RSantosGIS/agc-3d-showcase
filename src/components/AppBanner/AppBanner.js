@@ -7,7 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { makeStyles } from '@material-ui/core/styles';
-import {useHistory} from 'react-router-dom';
+import {useHistory, useLocation} from 'react-router-dom';
 import config from 'AgcShowcaseConfig';
 
 const useStyles = makeStyles((theme) => ({
@@ -23,11 +23,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function AppBanner(props) {
+  let location = useLocation().pathname;
   const classes = useStyles();
-  const [navTabIndex, setNavTabIndex] = React.useState(0);
+  const [navTabIndex, setNavTabIndex] = React.useState(config.tabDefs.tabIndexes.findIndex((element)=> element===location));
   const history = useHistory();
   
-
   function a11yProps(index) {
     return {
       id: `simple-tab-${index}`,

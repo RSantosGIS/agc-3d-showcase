@@ -4,7 +4,7 @@ var AgcShowcaseConfig = {
   bannerText: 'AGC 3D Showcase',
   tabDefs: {
     tabIndexes: ['/home', '/line-of-sight', '/placeholder'],
-    tabTitles: ["Linked Map/Scene", "3D Line of Sight", "Future Demo"],
+    tabTitles: ["Linked Map/Scene", "Line of Sight", "Future Demo"],
     linkedMapSettings : {
       renderer: {
         type: "simple", // autocasts as new SimpleRenderer()
