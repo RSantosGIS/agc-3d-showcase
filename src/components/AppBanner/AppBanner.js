@@ -55,6 +55,7 @@ export default function AppBanner(props) {
             <Tab label={config.tabDefs.tabTitles[0]} {...a11yProps(0)}/>
             <Tab label={config.tabDefs.tabTitles[1]} {...a11yProps(1)}/>
             <Tab label={config.tabDefs.tabTitles[2]} {...a11yProps(2)}/>
+            <Tab label={config.tabDefs.tabTitles[3]} {...a11yProps(3)}/>
           </Tabs>
         </Toolbar>
       </AppBar>  

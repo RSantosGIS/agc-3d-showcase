@@ -3,6 +3,7 @@ import { Route, Redirect } from 'react-router-dom';
 import LinkedMapsContainer from '../LinkedMaps/LinkedMapsContainer';
 import LineOfSightContainer from '../LineOfSight/LineOfSightContainer';
 import MeasurementContainer from '../Measurement/MeasurementContainer';
+import Routing from '../Routing/Routing';
 
 
 export default function ContentContainer(props) {
@@ -18,6 +19,9 @@ export default function ContentContainer(props) {
       </Route>
       <Route path={props.tabIndex[2]}>
         <MeasurementContainer/>
+      </Route>
+      <Route path={props.tabIndex[3]}>
+        <Routing/>
       </Route>
       <Route exact path='/'>
         <Redirect to={props.tabIndex[0]}></Redirect>
