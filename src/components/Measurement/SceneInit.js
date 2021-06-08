@@ -2,13 +2,13 @@ import WebScene from '@arcgis/core/WebScene';
 import SceneView from '@arcgis/core/views/SceneView';
 import DirectLineMeasurement3D from '@arcgis/core/widgets/DirectLineMeasurement3D';
 import AreaMeasurement3D from '@arcgis/core/widgets/AreaMeasurement3D';
-//import config from 'AgcShowcaseConfig';
+import config from 'AgcShowcaseConfig';
 
 const initScene = (sceneDiv) => {
   // load a webscene
   const webscene = new WebScene({
     portalItem: {
-      id: "b6c889ff1f684cd7a65301984b80b93d"
+      id: config.tabDefs.measurementSettings.portalItemId
     }
   });
 
@@ -23,7 +23,7 @@ const initScene = (sceneDiv) => {
 const initWidgets = (sceneView, widgetRefs) => {
   // add the toolbar for the measurement widgets
   var activeWidget;
-  sceneView.ui.add(widgetRefs.topBarRef, "top-right");
+  sceneView.ui.add(widgetRefs.topBarRef, config.tabDefs.measurementSettings.widgetPosition);
 
   widgetRefs.distanceBtnRef.addEventListener("click", (event) => {
     setActiveWidget(null);
@@ -53,7 +53,7 @@ const initWidgets = (sceneView, widgetRefs) => {
         // skip the initial 'new measurement' button
         activeWidget.viewModel.start();
 
-        sceneView.ui.add(activeWidget, "top-right");
+        sceneView.ui.add(activeWidget, config.tabDefs.measurementSettings.widgetPosition);
         setActiveButton(widgetRefs.distanceBtnRef);
         break;
       case "area":
@@ -64,7 +64,7 @@ const initWidgets = (sceneView, widgetRefs) => {
         // skip the initial 'new measurement' button
         activeWidget.viewModel.start();
 
-        sceneView.ui.add(activeWidget, "top-right");
+        sceneView.ui.add(activeWidget, config.tabDefs.measurementSettings.widgetPosition);
         setActiveButton(widgetRefs.areaBtnRef);
         break;
       case null:

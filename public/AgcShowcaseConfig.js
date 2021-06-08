@@ -118,6 +118,10 @@ var AgcShowcaseConfig = {
       losWidgetSettings: {
         uiLocation: 'top-right'
       }
+    },
+    measurementSettings: {
+      portalItemId: 'b6c889ff1f684cd7a65301984b80b93d',
+      widgetPosition: 'top-right'
     }
   }
 }
