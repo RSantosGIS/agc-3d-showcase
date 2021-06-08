@@ -25,7 +25,8 @@ const useStyles = makeStyles((theme) => ({
 export default function AppBanner(props) {
   let location = useLocation().pathname;
   const classes = useStyles();
-  const [navTabIndex, setNavTabIndex] = React.useState(config.tabDefs.tabIndexes.findIndex((element)=> element===location));
+  let initTabIndex =config.tabDefs.tabIndexes.findIndex((element)=> element===location);
+  const [navTabIndex, setNavTabIndex] = React.useState(initTabIndex>-1 ? initTabIndex : 0);
   const history = useHistory();
   
   function a11yProps(index) {
