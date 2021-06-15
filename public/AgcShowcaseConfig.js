@@ -1,4 +1,7 @@
 /* eslint-disable no-unused-vars */
+/**
+ * the configuration of the application that can be easily edited in different environments
+ */
 var AgcShowcaseConfig = {
   rootPath : '/agc-3d-showcase',
   bannerText: 'AGC 3D Showcase',

@@ -8,7 +8,10 @@ import config from 'AgcShowcaseConfig';
 //CSS
 import "./App.css"; 
 
-
+/**
+ * The React Application root.  Uses Browserrouter for browser history and navigation routing
+ * @author santosrj
+ */
 function App() {
   
   const tabIndex = config.tabDefs.tabIndexes;

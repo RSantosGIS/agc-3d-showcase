@@ -4,6 +4,11 @@ import DirectLineMeasurement3D from '@arcgis/core/widgets/DirectLineMeasurement3
 import AreaMeasurement3D from '@arcgis/core/widgets/AreaMeasurement3D';
 import config from 'AgcShowcaseConfig';
 
+/**
+ * initializes the scene, given an html ref to place it in
+ * @param {*} sceneDiv 
+ * @returns an esri sceneView
+ */
 const initScene = (sceneDiv) => {
   // load a webscene
   const webscene = new WebScene({
@@ -20,11 +25,17 @@ const initScene = (sceneDiv) => {
   return view;
 }
 
+/**
+ * Initializes the measurement and area widgets, given a sceneview they act on and refs to the widget html containers
+ * @param {} sceneView 
+ * @param {*} widgetRefs 
+ */
 const initWidgets = (sceneView, widgetRefs) => {
   // add the toolbar for the measurement widgets
   var activeWidget;
   sceneView.ui.add(widgetRefs.topBarRef, config.tabDefs.measurementSettings.widgetPosition);
 
+  //event handler for when the distance button is clicked - toggles activity
   widgetRefs.distanceBtnRef.addEventListener("click", (event) => {
     setActiveWidget(null);
     if (!event.target.classList.contains("active")) {
@@ -34,6 +45,7 @@ const initWidgets = (sceneView, widgetRefs) => {
     }
   });
 
+  //event handler for when the area button is clicked - toggles activity
   widgetRefs.areaBtnRef.addEventListener("click", (event) => {
     setActiveWidget(null);
     if (!event.target.classList.contains("active")) {
@@ -43,6 +55,10 @@ const initWidgets = (sceneView, widgetRefs) => {
     }
   });
 
+  /**
+   * toggles the active widget based on the supplied widget type
+   * @param {*} type 
+   */
   function setActiveWidget(type) {
     switch (type) {
       case "distance":
@@ -78,6 +94,7 @@ const initWidgets = (sceneView, widgetRefs) => {
     }
   }
 
+  //sets the active button for styling
   function setActiveButton(selectedButton) {
     // focus the view to activate keyboard shortcuts for sketching
     sceneView.focus();
@@ -90,6 +107,7 @@ const initWidgets = (sceneView, widgetRefs) => {
     }
   }
 }
+
 export default function initialize (sceneDiv, widgetRefs) {
   let view = initScene(sceneDiv);
   initWidgets(view, widgetRefs);

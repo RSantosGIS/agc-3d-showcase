@@ -10,6 +10,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import {useHistory, useLocation} from 'react-router-dom';
 import config from 'AgcShowcaseConfig';
 
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -22,9 +23,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function AppBanner(props) {
+/**
+ * Component which provides functionality and display of the nav bar that runs across the top of the application
+ * @param tabIndex The selected tab's array index
+ * @author santosrj
+ */
+export default function AppBanner({tabIndex}) {
   let location = useLocation().pathname;
   const classes = useStyles();
+  //figure out the numerical index that matches the path the user browsed to, and initialize the current tab
   let initTabIndex =config.tabDefs.tabIndexes.findIndex((element)=> element===location);
   const [navTabIndex, setNavTabIndex] = React.useState(initTabIndex>-1 ? initTabIndex : 0);
   const history = useHistory();
@@ -36,9 +43,15 @@ export default function AppBanner(props) {
     };
   }
 
+  /**
+   * Handles a change event of the current tab and updates the browser history
+   * @param {*} event the change event object
+   * @param {*} newIndex the selected index 
+   * @author santosrj
+   */
   const handleChange = (event, newIndex) => {
     setNavTabIndex(newIndex);
-    history.push(props.tabIndex[newIndex]);
+    history.push(tabIndex[newIndex]);
   };
 
   return (

@@ -6,25 +6,30 @@ import MeasurementContainer from '../Measurement/MeasurementContainer';
 import Routing from '../Routing/Routing';
 
 
-export default function ContentContainer(props) {
+/**
+ * Component that handles routing to the various content items and displays them when they are navigated to
+ * @param {} tabIndex the array of paths as determined by the tabs.  determines routing
+ * @author santosrj 
+ */
+export default function ContentContainer({tabIndex}) {
   
 
   return (
     <>
-      <Route path={props.tabIndex[0]}>
+      <Route path={tabIndex[0]}>
         <LinkedMapsContainer />
       </Route>
-      <Route path={props.tabIndex[1]}>
+      <Route path={tabIndex[1]}>
         <LineOfSightContainer/>
       </Route>
-      <Route path={props.tabIndex[2]}>
+      <Route path={tabIndex[2]}>
         <MeasurementContainer/>
       </Route>
-      <Route path={props.tabIndex[3]}>
+      <Route path={tabIndex[3]}>
         <Routing/>
       </Route>
       <Route exact path='/'>
-        <Redirect to={props.tabIndex[0]}></Redirect>
+        <Redirect to={tabIndex[0]}></Redirect>
       </Route>
     </>
   )

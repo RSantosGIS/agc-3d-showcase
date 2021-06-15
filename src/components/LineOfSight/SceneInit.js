@@ -6,6 +6,10 @@ import LayerList from '@arcgis/core/widgets/LayerList';
 import * as watchUtils from '@arcgis/core/core/watchUtils';
 import config from 'AgcShowcaseConfig';
 
+/**
+ * Initializes the 3D scene usin the specified html container
+ * @param {*} sceneDiv  
+ */
 const initScene = (sceneDiv) => {
   const scene = new WebScene({
     portalItem: {
@@ -20,6 +24,10 @@ const initScene = (sceneDiv) => {
   return view;
 }
 
+/**
+ * Initiazes the LOS widgets on the specified scene view
+ * @param {} sceneView 
+ */
 const initWidgets = (sceneView) => {
   /**
    * LOS
@@ -60,6 +68,7 @@ const initWidgets = (sceneView) => {
     }]
   };
 
+  //sets LoS intersection block symbology
   function setIntersectionMarkers() {
     sceneView.graphics.removeAll();
     viewModel.targets.forEach((target) => {
@@ -92,6 +101,7 @@ const initWidgets = (sceneView) => {
     sceneView.ui.add(layerList, "bottom-right");
   });
 }
+
 export default function initialize (sceneDiv) {
   let view = initScene(sceneDiv);
   initWidgets(view);

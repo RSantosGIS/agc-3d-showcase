@@ -3,12 +3,17 @@ import Grid from '@material-ui/core/Grid';
 import initialize from './SceneInit';
 import './Measurement.css';
 
+/**
+ * Component for displaying the 3D measurement demonstration
+ * @author santosrj
+ */
 export default function MeasurementContainer() {
   const sceneDiv = useRef(null);
   const distanceBtnRef = useRef(null);
   const areaBtnRef = useRef(null);
   const topBarRef = useRef(null);
 
+  //initializes the 3D scene
   useEffect(() => {
     if (sceneDiv.current) {
       //Initialize application
@@ -20,6 +25,7 @@ export default function MeasurementContainer() {
     }
   }, []);
 
+  //in this particular demo we manually set the html elements for the widget containers
   return (
     <>
       <Grid item xs={12}>

@@ -6,14 +6,28 @@ import Legend from '@arcgis/core/widgets/Legend';
 import Map from '@arcgis/core/Map';
 import config from 'AgcShowcaseConfig';
 
+/**
+ * Initializes the renderer based on the settings in the config
+ * @returns 
+ */
 const initRenderer = () => {
   return config.tabDefs.linkedMapSettings.renderer;
 }
 
+/**
+ * Initializes the popups based on the settings in the config
+ * @returns 
+ */
 const initPopups = () => {
   return config.tabDefs.linkedMapSettings.demoFeaturePopuptemplate;
 };
 
+/**
+ * Initializes the map, given a list of layers to display and an html div to put it in
+ * @param {*} mapDiv 
+ * @param {*} layers 
+ * @returns 
+ */
 const initMapView = (mapDiv, layers) =>{
   //Maps
   var cartesianMap = new Map({
@@ -31,6 +45,12 @@ const initMapView = (mapDiv, layers) =>{
   return mapView;
 }
 
+/**
+ * Initializes the scene, given a list of layers to display and an html div to put it in
+ * @param {*} sceneDiv 
+ * @param {*} layers 
+ * @returns 
+ */
 const initSceneView = (sceneDiv, layers) => {
   var sceneMap = new Map({
     basemap: config.tabDefs.linkedMapSettings.sceneSettings.basemap,
@@ -45,6 +65,11 @@ const initSceneView = (sceneDiv, layers) => {
   return sceneView;
 };
 
+/**
+ * Initializes the legend widgets on a target map and scene view
+ * @param {*} mapView 
+ * @param {*} sceneView 
+ */
 const initWidgets = (mapView, sceneView) => {
   var mapLegend = new Legend({
     view: mapView
@@ -57,6 +82,11 @@ const initWidgets = (mapView, sceneView) => {
   sceneView.ui.add(sceneLegend, config.tabDefs.linkedMapSettings.legendSettings.uiLocation);
 };
 
+/**
+ * Initializes viewport manipulation event handling, which keeps the two maps in sync
+ * @param {} mapView 
+ * @param {*} sceneView 
+ */
 const initEventHandling = (mapView, sceneView) => {
   const views = [mapView, sceneView];
   let active;
