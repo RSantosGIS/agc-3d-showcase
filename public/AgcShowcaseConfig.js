@@ -125,6 +125,29 @@ var AgcShowcaseConfig = {
     measurementSettings: {
       portalItemId: 'b6c889ff1f684cd7a65301984b80b93d',
       widgetPosition: 'top-right'
+    },
+    routingSettings: {
+      sceneSettings: {
+        basemap: "hybrid",
+        ground: "world-elevation"
+      },
+      sceneViewSettings: {
+        environment: {
+          lighting: {
+            date: new Date("July 15, 2015 8:00:00 PDT"),
+            directShadowsEnabled: true
+          },
+          atmosphere: {
+            quality: "high"
+          }
+        },
+        center: [4.8357, 45.7640],
+        zoom: 15
+      },
+      routeTaskSettings: {
+        url : "https://route-api.arcgis.com/arcgis/rest/services/World/Route/NAServer/Route_World",
+        wkid: 3857
+      }
     }
   }
 }

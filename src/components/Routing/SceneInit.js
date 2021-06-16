@@ -13,16 +13,16 @@ const initScene = (sceneDiv, layers) => {
   // The stops and route result will be stored in this layer
   
   var sceneMap = new Map({
-    basemap: config.tabDefs.linkedMapSettings.sceneSettings.basemap,
-    ground: config.tabDefs.linkedMapSettings.sceneSettings.ground,
+    basemap: config.tabDefs.routingSettings.sceneSettings.basemap,
+    ground: config.tabDefs.routingSettings.sceneSettings.ground,
     layers: layers
   });
   const sceneView = new SceneView({
     container: sceneDiv,
     map: sceneMap,
-    environment: config.tabDefs.linkedMapSettings.sceneViewSettings.environment,
-    center: [4.8357, 45.7640],
-    zoom: 15
+    environment: config.tabDefs.routingSettings.sceneViewSettings.environment,
+    center: config.tabDefs.routingSettings.sceneViewSettings.center,
+    zoom: config.tabDefs.routingSettings.sceneViewSettings.zoom
   });
   return sceneView;
 }
@@ -30,7 +30,7 @@ const initScene = (sceneDiv, layers) => {
 const initRouting = (view, routeLayer) => {
   // Point the URL to a valid routing service
   var routeTask = new RouteTask({
-    url: "https://route-api.arcgis.com/arcgis/rest/services/World/Route/NAServer/Route_World"
+    url: config.tabDefs.routingSettings.routeTaskSettings.url
   });
 
   // Setup the route parameters
@@ -38,7 +38,7 @@ const initRouting = (view, routeLayer) => {
     stops: new FeatureSet(),
     outSpatialReference: {
       // autocasts as new SpatialReference()
-      wkid: 3857
+      wkid: config.tabDefs.routingSettings.routeTaskSettings.wkid
     }
   });
 
