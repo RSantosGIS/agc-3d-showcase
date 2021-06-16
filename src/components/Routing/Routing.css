@@ -1,0 +1,8 @@
+.paneDiv {
+  position: absolute;
+  top: 80px;
+  left: 62px;
+  padding: 0 12px 0 12px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+}
